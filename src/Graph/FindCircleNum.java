@@ -71,10 +71,12 @@ public class FindCircleNum {
         if (M == null || M.length == 0) return 0;
 
         int nr = M.length;
-        var uf = new UF(0);
+        var uf = new UF(nr);
         for (int i = 0; i < nr; i++) {
             for (int j = 0; j <= i; j++) {
-                uf.union(i, j);
+                if (M[i][j] == 1) {
+                    uf.union(i, j);
+                }
             }
         }
 
