@@ -1,12 +1,15 @@
 package BinaryTree;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-// 前序遍历
+/**
+ * 144. 二叉树前序遍历
+ * 589. N叉树前序遍历
+ */
 public class PreOrderTraversal {
 
+    /* 二叉树 */
     // 递归
     public List<Integer> preorderTraversal(TreeNode root) {
         ArrayList<Integer> ans = new ArrayList<>();
@@ -77,4 +80,43 @@ public class PreOrderTraversal {
 
         return ans;
     }
+
+    /* N叉树 */
+    // 递归
+    public List<Integer> preOrder(Node root) {
+        List<Integer> ans = new ArrayList<>();
+        dfs(ans, root);
+        return ans;
+    }
+
+    public void dfs(List<Integer> ans, Node node) {
+        if (node == null) return;
+
+        ans.add(node.val);
+        for (Node n : node.children) {
+            dfs(ans, n);
+        }
+    }
+
+    // 模拟递归
+    public List<Integer> preOrder1(Node root) {
+        List<Integer> ans = new ArrayList<>();
+        if (root == null) return ans;
+
+        List<Node> stack = new ArrayList<>();
+        stack.add(root);
+        while (!stack.isEmpty()) {
+            Node node = stack.remove(stack.size() - 1);
+            ans.add(node.val);
+            List<Node> children = node.children;
+
+            for (int i = children.size() - 1; i >=0; i--) {
+                if (children.get(i) == null) continue;
+                stack.add(children.get(i));
+            }
+        }
+
+        return ans;
+    }
+
 }
