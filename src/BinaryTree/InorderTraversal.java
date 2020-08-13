@@ -34,4 +34,34 @@ public class InorderTraversal {
 
         return result;
     }
+
+    // morris 遍历
+    public List<Integer> inorderTraversal3(TreeNode root) {
+        List<Integer> ans = new ArrayList<>();
+
+        TreeNode node = root;
+        TreeNode predcessor = null;
+        while (node != null) {
+            if (node.getLeft() == null) {
+                ans.add(node.getVal());
+                node = node.getRight();
+            } else {
+                predcessor = node.getLeft();
+                while (predcessor.getRight() != null && predcessor.getRight() != node) {
+                    predcessor = predcessor.getRight();
+                }
+
+                if (predcessor.getRight() == null) {
+                    node = node.getLeft();
+                    predcessor.setRight(node);
+                } else {
+                    ans.add(node.getVal());
+                    predcessor.setRight(null);
+                    node = node.getRight();
+                }
+            }
+        }
+
+        return ans;
+    }
 }
