@@ -24,6 +24,8 @@ public class CombinationSum3 {
         }
 
         for (int i = left; i <= 9; i++) {
+            if (n - i < 0) break;
+
             curr.add(i);
             combinationSum3(k, n - i, i+1, curr, ans);
             curr.remove(curr.size() - 1);
