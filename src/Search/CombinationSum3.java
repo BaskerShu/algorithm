@@ -1,4 +1,4 @@
-package DivideAndConquer;
+package Search;
 
 import java.util.ArrayList;
 import java.util.List;
