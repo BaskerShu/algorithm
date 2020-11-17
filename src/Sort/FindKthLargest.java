@@ -36,4 +36,51 @@ public class FindKthLargest {
             return partition(nums, l, i-1, k);
         }
     }
+
+    // 堆排
+    public int findKthLargest2(int[] nums, int k) {
+        int heapSize = nums.length;
+        buildMaxHeap(nums, heapSize);
+        for (int i = 0; i < k - 1; i++) {
+            swap(nums, 0, --heapSize);
+            maxHeapify(nums, 0, heapSize);
+        }
+        return nums[0];
+    }
+
+    public void buildMaxHeap(int[] nums, int heapSize) {
+        for (int i = heapSize / 2; i >= 0; i--) {
+            maxHeapify(nums, i, heapSize);
+        }
+    }
+
+    public void maxHeapify(int[] nums, int i, int heapSize) {
+        int l = i * 2 + 1;
+        int r = i * 2 + 2;
+        int largest = i;
+        if (l < heapSize && nums[l] > nums[largest]) {
+            largest = l;
+        }
+        if (r < heapSize && nums[r] > nums[largest]) {
+            largest = r;
+        }
+
+        if (largest != i) {
+            swap(nums, i, largest);
+            maxHeapify(nums, largest, heapSize);
+        }
+    }
+
+    private void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+
+    public static void main(String[] args) {
+        var obj = new FindKthLargest();
+        int[] nums = {3, 2, 1, 5, 6, 4};
+
+        System.out.println(obj.findKthLargest2(nums, 2));
+    }
 }
