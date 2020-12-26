@@ -1,6 +1,8 @@
 package Graph;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * 547. 朋友圈
@@ -81,6 +83,34 @@ public class FindCircleNum {
         }
 
         return uf.count;
+    }
+
+    // DFS
+    public int findCircleNum3(int[][] M) {
+        int nr = M.length;
+
+        int num = 0;
+        int[] people = new int[nr];
+        for (int i = 0; i < nr; i++) {
+            if (people[i] == 1) {
+                continue;
+            }
+
+            Queue<Integer> queue = new LinkedList<>();
+            queue.add(i);
+            people[i] = 1;
+            num++;
+            while (!queue.isEmpty()) {
+                int p = queue.poll();
+                for (int j = 0 ; j < nr; j++) {
+                    if (M[p][j] == 1 && people[j] == 0) {
+                        people[j] = 1;
+                        queue.add(j);
+                    }
+                }
+            }
+        }
+        return num;
     }
 }
 

@@ -1,8 +1,9 @@
-package Graph;
+package Search;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 /**
 200. 岛屿数量
@@ -71,5 +72,54 @@ public class NumIslands {
             }
         }
         return islands;
+    }
+
+    public int numIsland3(char[][] grid) {
+        int rLen = grid.length;
+        int cLen = grid[0].length;
+        int num = 0;
+        int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+
+        for (int r = 0; r < rLen; r++) {
+            for (int c = 0; c < cLen; c++) {
+                if (grid[r][c] == '0') {
+                    continue;
+                }
+
+                Queue<int[]> queue = new LinkedList<>();
+                queue.add(new int[]{r, c});
+                grid[r][c] = 0;
+                num += 1;
+                while (!queue.isEmpty()) {
+                    int[] node = queue.poll();
+                    int nodeR = node[0];
+                    int nodeC = node[1];
+
+                    for (int[] direction : directions) {
+                        int newR = nodeR + direction[0];
+                        int newC = nodeC + direction[1];
+                        if (newR >= 0 && newR < rLen && newC >= 0 && newC < cLen && grid[newR][newC] == '1') {
+                            queue.add(new int[]{newR, newC});
+                            grid[newR][newC] = '0';
+                        }
+                    }
+                }
+
+            }
+        }
+        return num;
+     }
+
+    public static void main(String[] args) {
+        char[][] land = {
+                {'1','1','1','1','0'},
+                {'1','1','0','1','0'},
+                {'1','1','0','0','0'},
+                {'0','0','0','0','0'}
+        };
+
+        NumIslands obj = new NumIslands();
+        int ans = obj.numIsland3(land);
+        System.out.println(ans);
     }
 }
