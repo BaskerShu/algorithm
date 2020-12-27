@@ -136,7 +136,7 @@ class UF {
         if (rootP == rootQ)
             return;
 
-        if (size[rootQ] > size[rootP]) {
+        if (size[rootP] > size[rootQ]) {
             parent[rootQ] = rootP;
             size[rootP] += size[rootQ];
         } else {
