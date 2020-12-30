@@ -81,4 +81,24 @@ public class LetterCombinations {
 
         return ans;
     }
+
+    public List<String> letterCombinations4(String digits) {
+        List<String> ans = new ArrayList<>();
+        char[] curr = new char[digits.length()];
+        dfs2(digits, 0, curr, ans);
+        return ans;
+    }
+
+    private void dfs2(String digits, int index, char[] curr, List<String> ans) {
+        if (index == digits.length()) {
+            ans.add(new String(curr));
+            return;
+        }
+
+        int num = digits.charAt(index) - '0';
+        for (char t : d[num].toCharArray()) {
+            curr[index] = t;
+            dfs2(digits, index + 1, curr, ans);
+        }
+    }
 }
