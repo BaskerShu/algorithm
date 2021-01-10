@@ -24,6 +24,10 @@ public class Combine {
             return;
         }
 
+        if (curr.size() + n - start + 1 < k) {
+            return;
+        }
+
         for (int i = start; i <= n; i++) {
             curr.addLast(i);
             combine(n, k, i+1, curr, ans);
